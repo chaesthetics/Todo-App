@@ -15,7 +15,7 @@ const TaskList = (props: any) => {
                 <div>{`${day}`}</div>
             </div>
             <div className="flex gap-2">
-                <Removebtn />
+                <Removebtn id={props.todo.id} />
                 <Link href={"/editTodo/123"}><HiPencilAlt size={24}/></Link>
             </div>
         </div>  
