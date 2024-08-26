@@ -1,6 +1,5 @@
 "use server"
 import { PrismaClient, Prisma } from '@prisma/client'
-import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 const prisma = new PrismaClient()
@@ -36,5 +35,28 @@ export async function removeToList(id:any){
             id : itemId,
         },
     });
-    revalidatePath("/")
+}
+
+export async function completeTask(id:any){
+    const itemId = id as string;
+    await prisma.todo.update({
+        where: {
+            id: itemId
+        },
+        data:{
+            isCompleted: true,
+        },
+    });
+}
+
+export async function unCompleteTask(id:any){
+    const itemId = id as string;
+    await prisma.todo.update({
+        where: {
+            id: itemId
+        },
+        data:{
+            isCompleted: false,
+        },
+    });
 }
