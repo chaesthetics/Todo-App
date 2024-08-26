@@ -1,18 +1,30 @@
 "use client"
-import { useState, FormEvent } from "react";
-import { createTodo } from "../../actions/todoActions";
+import { usePathname } from "next/navigation";
+import { useState, FormEvent, useEffect } from "react";
+import { updateTodo, getTodo } from "@/actions/todoActions";
 
-const AddTodo = () => {
-    const [title, setTitle] = useState<string>("");
-    
+const editTodo = () => {
+    const pathname = usePathname();
+    const [title, setTitle] = useState<string>();
+
+    useEffect(()=>{
+        const getTask = async() => {
+            const taskId = pathname.replace("/editTodo/", "");
+            const todo = await getTodo(taskId);  
+            setTitle(todo?.title);
+        }
+        getTask();
+    }, []);
+
     const handleSubmit = async (e: FormEvent) => {
+        const taskId = pathname.replace("/editTodo/", "");
         e.preventDefault();
         if (!title) {
             alert('Task name is required');
             return;
         }
         try {
-            await createTodo(title);
+            await updateTodo(taskId, title);
             setTitle("");
         } catch (error) {
             console.log(error);
@@ -33,4 +45,4 @@ const AddTodo = () => {
     );
 }
 
-export default AddTodo;
+export default editTodo;

@@ -17,8 +17,12 @@ const TaskList = (props: any) => {
         }
     }
 
+    const stopPropagation = (Event:any) => {
+        Event.stopPropagation();
+    }
+
     return(
-        <div onClick={handleCompleteNess} className={"flex shadow relative justify-between items-start px-8 border rounded-xl py-6 my-3 shadow-sm hover:cursor-pointer hover:bg-green-300 animation-200 duration-200 " + (!props.todo.isCompleted ? 'bg-white' : 'bg-green-700')}>
+        <div onClick={handleCompleteNess} className={"flex z-10 shadow relative justify-between items-start px-8 border rounded-xl py-6 my-3 shadow-sm hover:cursor-pointer hover:bg-green-300 animation-200 duration-200 " + (!props.todo.isCompleted ? 'bg-white' : 'bg-green-700')}>
             <div className="gap-2">
                 {!props.todo.isCompleted ? <h2 className="text-xl font-bold">{props.todo.title}</h2> 
                 : <h2 className="text-xl font-bold line-through">{props.todo.title}</h2>}
@@ -26,7 +30,7 @@ const TaskList = (props: any) => {
             </div>
             <div className="flex gap-2">
                 <Removebtn id={props.todo.id} func={props.func}/>
-                <Link href={"/editTodo/123"}><HiPencilAlt size={24}/></Link>
+                <Link href={`/editTodo/${props.todo.id}`} onClick={stopPropagation}><HiPencilAlt size={24}/></Link>
             </div>
             {
                 props.todo.isCompleted && <div className="text-white font-semibold absolute bottom-2 right-4">COMPLETED</div>

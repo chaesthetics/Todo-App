@@ -16,7 +16,7 @@ export default function Home() {
     }
   };
   fetchTodos();
-  console.log(data);
+  
   return (
     <>
     { data && data.map((todo:any, key:string)=>(

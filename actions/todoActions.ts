@@ -60,3 +60,26 @@ export async function unCompleteTask(id:any){
         },
     });
 }
+
+export async function updateTodo(id:any, title:any){
+    const itemId = id as string;
+    await prisma.todo.update({
+        where:{
+            id : itemId
+        },
+        data:{
+            title: title
+        },
+    });
+    redirect('/');
+}
+
+export async function getTodo(id:any){
+    const itemId = id as string;
+    const task = await prisma.todo.findFirst({
+        where:{
+            id : itemId,
+        }
+    })
+    return task;
+}
