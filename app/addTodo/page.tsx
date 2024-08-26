@@ -19,15 +19,15 @@ const AddTodo = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col pt-4 gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col pt-4 gap-4 max-w-xl mx-auto mt-10">
             <input 
                 type="text" 
                 value={title} 
                 onChange={(e) => setTitle(e.target.value)} 
                 placeholder="Enter task title" 
-                className="px-4 py-4 font-semibold border text-lg"
+                className="px-4 py-2 font-semibold border text-lg"
             />
-            <button type="submit" className="px-6 py-4 bg-green-800 text-white text-xl fond-bold">Add Todo</button>
+            <button type="submit" className="px-6 py-2 bg-green-800 text-white text-xl fond-bold">Add Todo</button>
         </form>
     );
 }
