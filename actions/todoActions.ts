@@ -1,14 +1,9 @@
 "use server"
 import { PrismaClient, Prisma } from '@prisma/client'
 import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache'
 
 const prisma = new PrismaClient()
-
-interface todoInput{
-    id: String,
-    title: String,
-    isCompleted: Boolean,
-}
 
 export async function createTodo(title:any) {
     await prisma.todo.create({
@@ -47,6 +42,7 @@ export async function completeTask(id:any){
             isCompleted: true,
         },
     });
+    revalidatePath('/');
 }
 
 export async function unCompleteTask(id:any){
@@ -59,6 +55,7 @@ export async function unCompleteTask(id:any){
             isCompleted: false,
         },
     });
+    revalidatePath('/');
 }
 
 export async function updateTodo(id:any, title:any){

@@ -2,20 +2,22 @@
 
 import TaskList from "@/components/TasksList"
 import { getAllList } from "@/actions/todoActions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const [data, setData] = useState<any>();
 
-  const fetchTodos = async () => {
-    try {
-      const todoList = await getAllList();
-      setData(todoList);
-    } catch (error) {
-      console.log("Failed to fetch todos:", error);
-    }
-  };
-  fetchTodos();
+  useEffect(()=>{
+    const fetchTodos = async () => {
+      try {
+        const todoList = await getAllList();
+        setData(todoList);
+      } catch (error) {
+        console.log("Failed to fetch todos:", error);
+      }
+    };
+    fetchTodos();
+  }, []);
   
   return (
     <>
