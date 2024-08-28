@@ -40,7 +40,7 @@ const editTodo = () => {
                 placeholder="Enter task title" 
                 className="px-4 py-2 font-semibold border text-lg"
             />
-            <button type="submit" className="px-6 py-2 bg-green-800 text-white text-xl fond-bold">Add Todo</button>
+            <button type="submit" className="px-6 py-2 bg-green-800 text-white text-xl fond-bold">Update Todo</button>
         </form>
     );
 }

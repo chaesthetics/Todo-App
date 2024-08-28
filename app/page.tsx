@@ -1,27 +1,18 @@
-"use client"
 
 import TaskList from "@/components/TasksList"
-import { getAllList } from "@/actions/todoActions";
-import { useState } from "react";
+import prisma from "@/lib/db";
 
-export default function Home() {
-  const [data, setData] = useState<any>();
-
-  const fetchTodos = async () => {
-    try {
-      const todoList = await getAllList();
-      setData(todoList);
-    } catch (error) {
-      console.log("Failed to fetch todos:", error);
-    }
-  };
-  fetchTodos();
-  
+export default async function Home() {
+  const todos = await prisma.todo.findMany({
+    orderBy:{
+      createdAt: "desc"
+    },
+  });
   return (
     <>
-    { data && data.map((todo:any, key:string)=>(
+    { todos && todos.map((todo:any, key:number)=>(
       <div key={key}>
-        <TaskList todo={todo} func={getAllList}/>
+        <TaskList todo={todo}/>
       </div>
     ))}
     </>

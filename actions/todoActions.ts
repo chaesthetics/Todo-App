@@ -1,5 +1,6 @@
 "use server"
 import { PrismaClient, Prisma } from '@prisma/client'
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 const prisma = new PrismaClient()
@@ -19,15 +20,6 @@ export async function createTodo(title:any) {
     redirect('/');
 }
 
-export async function getAllList(){
-    const data = await prisma.todo.findMany({
-        orderBy:{
-            createdAt:"desc",
-        }
-    });
-    return data;
-}
-
 export async function removeToList(id:any){
     const itemId = id as string;
     await prisma.todo.delete({
@@ -35,6 +27,7 @@ export async function removeToList(id:any){
             id : itemId,
         },
     });
+    revalidatePath('/');
 }
 
 export async function completeTask(id:any){
@@ -47,6 +40,7 @@ export async function completeTask(id:any){
             isCompleted: true,
         },
     });
+    revalidatePath('/');
 }
 
 export async function unCompleteTask(id:any){
@@ -59,6 +53,7 @@ export async function unCompleteTask(id:any){
             isCompleted: false,
         },
     });
+    revalidatePath('/');
 }
 
 export async function updateTodo(id:any, title:any){

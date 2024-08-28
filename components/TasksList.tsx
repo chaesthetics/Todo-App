@@ -1,3 +1,4 @@
+"use client"
 import Removebtn from "@/components/Removebtn";
 import Link from "next/link";
 import { HiPencilAlt } from "react-icons/hi";
@@ -5,9 +6,6 @@ import { completeTask, unCompleteTask } from "@/actions/todoActions";
 
 const TaskList = (props: any) => {
     const date = new Date(props.todo.createdAt);
-    const month = date.getMonth() + 1;
-    const day = date;
-    const year = date.getFullYear();
 
     const handleCompleteNess = async() => {
         if(props.todo.isCompleted){
@@ -26,7 +24,7 @@ const TaskList = (props: any) => {
             <div className="gap-2">
                 {!props.todo.isCompleted ? <h2 className="text-xl font-bold">{props.todo.title}</h2> 
                 : <h2 className="text-xl font-bold line-through">{props.todo.title}</h2>}
-                {props.todo.isCompleted ? <div className="line-through">{`${day}`}</div> : <div>{`${day}`}</div> }
+                {props.todo.isCompleted ? <div className="line-through">{`${date}`}</div> : <div>{`${date}`}</div> }
             </div>
             <div className="flex gap-2">
                 <Removebtn id={props.todo.id} func={props.func}/>
